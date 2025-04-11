@@ -28,3 +28,9 @@ FROM order_items oi
   JOIN orders o ON oi.order_id = o.order_id
 GROUP BY b.branc_name, o.store_id
 ORDER BY b.brand_name, o.store_id;
+
+--Listar os Funcionarios que não estejam relacionados a um Pedido.--
+SELECT s.staff_id, s.first_name, s.last_name
+  FROM staffs s
+  LEFT JOIN orders o ON s.staff_id = o.staff_id
+WHERE o.order_id IS NULL;

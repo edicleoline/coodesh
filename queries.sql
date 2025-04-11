@@ -16,3 +16,15 @@ SELECT p.product_id, p.product_name
   LEFT JOIN stocks s ON p.product_id = s.product_id
 GROUP BY p.product_id, p.product_name
   HAVING COALESCE(SUM(s.quantity), 0) = 0;
+
+--Agrupar a quantidade de vendas que uma determinada Marca por Loja. --
+SELECT
+    b.brand_name,
+    o.store_id,
+    SUM(oi.quantity) AS total_vendido
+FROM order_items oi
+  JOIN products p ON oi.product_id = p.product_id
+  JOIN brands b ON p.brand_id = b.brand_id
+  JOIN orders o ON oi.order_id = o.order_id
+GROUP BY b.branc_name, o.store_id
+ORDER BY b.brand_name, o.store_id;
